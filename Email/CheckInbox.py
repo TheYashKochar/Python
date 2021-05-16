@@ -1,0 +1,21 @@
+# Program to Check Inbox Mails of Gmail account
+# if code doesn't work then goto https://www.google.com/settings/security/lesssecureapps and click Enable
+import imapclient,pyzmail
+conn = imapclient.IMAPClient('imap.gmail.com',ssl=True)
+fromid = input('Enter your Gmail Id : ')
+idpass = input('Enter your Password : ')
+print(conn.login(fromid,idpass))
+conn.select_folder('INBOX', readonly=True)
+UIDs = conn.search(['SINCE', '01-Jan-2021'])
+print(UIDs)
+rmess = conn.fetch([40],['BODY[]','FLAGS'])
+mess = pyzmail.PyzMessage.factory(rmess[40][b'BODY[]'])
+print(mess.get_subject())
+print(mess.get_addresses('from'))
+print(mess.text_part)
+print(mess.html_part)
+print(mess.html_part == None)
+print(mess.text_part.get_payload().decode('UTF-8'))
+print('-------------')
+print(conn.list_folders())
+#conn.delete_messages([])
