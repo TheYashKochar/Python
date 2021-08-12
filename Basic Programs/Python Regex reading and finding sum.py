@@ -1,6 +1,6 @@
 import re
 name = input("Enter file:")
-if len(name) < 1 : name = "regex_sum_884502.txt"
+if len(name) < 1 : name = "marks.txt"
 handle = open(name)
 lst=list()
 for line in handle:
